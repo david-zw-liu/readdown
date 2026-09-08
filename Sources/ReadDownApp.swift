@@ -8,6 +8,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     lazy var checkForUpdatesViewModel = CheckForUpdatesViewModel(updater: updaterController.updater)
     private var launchedWithFiles = false
 
+    /// Readdown ships a dark reader by default. Pin the app appearance before
+    /// the first window exists, so `NSApp.effectiveAppearance` — the source of
+    /// truth for both the SwiftUI chrome and the generated HTML — is already
+    /// dark when `ContentView.init` builds the first template.
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSApp.appearance = NSAppearance(named: .darkAqua)
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Skip the launch sequence when hosting the test runner.
         guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return }

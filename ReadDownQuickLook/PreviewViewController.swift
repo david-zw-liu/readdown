@@ -15,6 +15,11 @@ class PreviewViewController: NSViewController, QLPreviewingController, WKNavigat
 
         webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = self
+        // Readdown previews are always dark, like the main app. The extension
+        // runs in its own process with no app delegate, and the template's dark
+        // palette comes from `prefers-color-scheme` — which WebKit resolves from
+        // the view's appearance — so pin the appearance on the web view itself.
+        webView.appearance = NSAppearance(named: .darkAqua)
         // Do NOT use `setValue(false, forKey: "drawsBackground")` here — that is a
         // private, undocumented KVC key on WKWebView. If a macOS release removes or
         // renames it, `setValue` throws NSUnknownKeyException inside loadView(),
@@ -40,9 +45,7 @@ class PreviewViewController: NSViewController, QLPreviewingController, WKNavigat
         do {
             let markdown = try TextFileDecoder.decode(Data(contentsOf: url))
             let result = MarkdownRenderer.render(markdown)
-            // Resolve dark vs light for the embedded Mermaid theme — see ContentView.init.
-            let isDark = NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            let html = HTMLTemplate.wrap(body: result.html, hasMermaid: result.hasMermaid, hasMath: result.hasMath, compact: true, isDark: isDark)
+            let html = HTMLTemplate.wrap(body: result.html, hasMermaid: result.hasMermaid, hasMath: result.hasMath, compact: true, isDark: true)
             webView.loadHTMLString(html, baseURL: url.deletingLastPathComponent())
             handler(nil)
         } catch {
