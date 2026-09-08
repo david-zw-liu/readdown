@@ -2,6 +2,11 @@
 
 Each version's **Highlights** block is what appears in the in-app update dialog. Keep it to ~5 short bullets grouped under `### New` / `### Fixed`. Everything below **Details** is full notes for GitHub / readdown.app.
 
+## 1.16.1
+
+### New
+- Readdown now always uses its dark theme, in both the app and Quick Look previews
+
 ## 1.16
 
 ### New
