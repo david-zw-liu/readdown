@@ -74,6 +74,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         false
     }
 
+    /// Readdown is a reader, not a workspace: an app with no window on screen
+    /// has nothing left to do. Quit instead of idling in the Dock with an empty
+    /// menu bar. Closing the Welcome window counts too — it is the only window
+    /// left when no document is open.
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        true
+    }
+
     /// SwiftUI's DocumentGroup only opens the first URL when multiple files are
     /// passed at launch (Finder multi-select → Open With Readdown). Route through
     /// NSDocumentController so each file gets its own window. Setting the flag
