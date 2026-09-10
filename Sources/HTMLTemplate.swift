@@ -50,7 +50,7 @@ enum HTMLTemplate {
         <html>
         <head>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src file: data: https: http:; font-src \(hasMath ? "data:" : "'none'"); connect-src 'none'; form-action 'none';">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src file: data: https: http: readdown-resource:; font-src \(hasMath ? "data:" : "'none'"); connect-src 'none'; form-action 'none';">
         <meta name="color-scheme" content="light dark">
         <style>
         :root {

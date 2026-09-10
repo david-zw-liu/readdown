@@ -60,15 +60,19 @@ struct WebView: NSViewRepresentable {
         config.defaultWebpagePreferences.allowsContentJavaScript = true
         // Weak proxy: the content controller retains its handlers.
         config.userContentController.add(WeakScriptMessageHandler(context.coordinator), name: "rdUsage")
+        if let baseURL {
+            config.setURLSchemeHandler(LocalResourceSchemeHandler(root: baseURL), forURLScheme: LocalResource.scheme)
+        }
 
         let webView = ZoomableWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         // ZoomableWebView handles pinch directly so the range matches Cmd-scroll (0.5–3.0).
         webView.allowsMagnification = false
-        webView.loadHTMLString(watcher.html, baseURL: baseURL)
+        webView.loadHTMLString(watcher.html, baseURL: context.coordinator.pageBaseURL)
         context.coordinator.webView = webView
         context.coordinator.observeFindState()
         context.coordinator.observeWatcher()
+        context.coordinator.observeResourceAccess()
         return webView
     }
 
@@ -101,7 +105,11 @@ struct WebView: NSViewRepresentable {
         }
 
         var baseURL: URL?
+        /// The document is loaded from `LocalResource.scheme`, not `file:`, so
+        /// its images resolve to requests the scheme handler can serve.
+        let pageBaseURL: URL?
         weak var webView: WKWebView?
+        private var didPromptForFolderAccess = false
         let findState: FindState
         let watcher: DocumentWatcher
         private var observers: [Any] = []
@@ -113,6 +121,7 @@ struct WebView: NSViewRepresentable {
 
         init(baseURL: URL?, findState: FindState, watcher: DocumentWatcher) {
             self.baseURL = baseURL
+            self.pageBaseURL = baseURL.flatMap(LocalResource.baseURL(forDirectory:))
             self.findState = findState
             self.watcher = watcher
             super.init()
@@ -159,8 +168,28 @@ struct WebView: NSViewRepresentable {
             webView.evaluateJavaScript("window.scrollY") { [weak self] result, _ in
                 guard let self, let webView = self.webView else { return }
                 self.pendingScrollY = result as? Double
-                webView.loadHTMLString(html, baseURL: self.baseURL)
+                webView.loadHTMLString(html, baseURL: self.pageBaseURL)
             }
+        }
+
+        /// The sandbox blocks sibling files until the reader grants the folder.
+        /// Ask once per window, then reload so the images appear.
+        func observeResourceAccess() {
+            let observer = NotificationCenter.default.addObserver(
+                forName: .localResourceAccessDenied,
+                object: nil,
+                queue: .main
+            ) { [weak self] note in
+                guard let self, let directory = note.object as? URL,
+                      directory == self.baseURL?.standardizedFileURL,
+                      !self.didPromptForFolderAccess else { return }
+                self.didPromptForFolderAccess = true
+                FolderAccess.requestAccess(to: directory, in: self.webView?.window) { granted in
+                    guard granted else { return }
+                    self.webView?.loadHTMLString(self.watcher.html, baseURL: self.pageBaseURL)
+                }
+            }
+            observers.append(observer)
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -246,7 +275,7 @@ struct WebView: NSViewRepresentable {
                 completion(live)
                 return
             }
-            printRenderer = PrintRenderer(text: watcher.text, baseURL: baseURL, width: live.bounds.width) { [weak self] lightView in
+            printRenderer = PrintRenderer(text: watcher.text, directory: baseURL, width: live.bounds.width) { [weak self] lightView in
                 completion(lightView)
                 self?.printRenderer = nil
             }
@@ -395,6 +424,11 @@ struct WebView: NSViewRepresentable {
             if url.fragment != nil, isSameDocumentFragment(click: url, page: page) {
                 return .allowInWebView
             }
+            // The page is served over `LocalResource.scheme`, so a relative link
+            // resolves to that scheme. Judge it as the file it stands for.
+            if let fileURL = LocalResource.fileURL(for: url) {
+                return isOpenableLocalDocument(fileURL) ? .revealInFinder : .ignore
+            }
             // Relative links between documents (`[details](notes.md)`) resolve to
             // a file:// URL against the doc's directory. Reveal the target in
             // Finder when it's a text/markdown file. Anything else local — an app
@@ -467,12 +501,16 @@ private final class PrintRenderer: NSObject, WKNavigationDelegate {
     private let completion: (WKWebView) -> Void
     private var finished = false
 
-    init(text: String, baseURL: URL?, width: CGFloat, completion: @escaping (WKWebView) -> Void) {
+    init(text: String, directory: URL?, width: CGFloat, completion: @escaping (WKWebView) -> Void) {
         let result = MarkdownRenderer.render(text)
         hasMermaid = result.hasMermaid
         self.completion = completion
         let html = HTMLTemplate.wrap(body: result.html, hasMermaid: result.hasMermaid, isDark: false)
-        webView = WKWebView(frame: NSRect(x: 0, y: 0, width: max(width, 320), height: 10))
+        let config = WKWebViewConfiguration()
+        if let directory {
+            config.setURLSchemeHandler(LocalResourceSchemeHandler(root: directory), forURLScheme: LocalResource.scheme)
+        }
+        webView = WKWebView(frame: NSRect(x: 0, y: 0, width: max(width, 320), height: 10), configuration: config)
         // Force light appearance so the page CSS `prefers-color-scheme` also
         // resolves light — `isDark: false` only covers Mermaid and the theme
         // attribute, not the media-query palette.
@@ -480,7 +518,7 @@ private final class PrintRenderer: NSObject, WKNavigationDelegate {
         webView.underPageBackgroundColor = .white
         super.init()
         webView.navigationDelegate = self
-        webView.loadHTMLString(html, baseURL: baseURL)
+        webView.loadHTMLString(html, baseURL: directory.flatMap(LocalResource.baseURL(forDirectory:)))
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

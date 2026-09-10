@@ -12,6 +12,7 @@
 		A100000000000000000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000003 /* ContentView.swift */; };
 		A100000000000000000004 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000004 /* WebView.swift */; };
 		A100000000000000000021 /* LocalLinkOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000021 /* LocalLinkOpener.swift */; };
+		A100000000000000000030 /* LocalResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000030 /* LocalResourceLoader.swift */; };
 		A100000000000000000005 /* MarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000005 /* MarkdownRenderer.swift */; };
 		A100000000000000000006 /* HTMLTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000006 /* HTMLTemplate.swift */; };
 		A10000000000000000000A /* TextFileDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000A /* TextFileDecoder.swift */; };
@@ -81,6 +82,7 @@
 		B100000000000000000003 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B100000000000000000004 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		B100000000000000000021 /* LocalLinkOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLinkOpener.swift; sourceTree = "<group>"; };
+		B100000000000000000030 /* LocalResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalResourceLoader.swift; sourceTree = "<group>"; };
 		B100000000000000000005 /* MarkdownRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownRenderer.swift; sourceTree = "<group>"; };
 		B100000000000000000006 /* HTMLTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTemplate.swift; sourceTree = "<group>"; };
 		B10000000000000000000A /* TextFileDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFileDecoder.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				B100000000000000000003 /* ContentView.swift */,
 				B100000000000000000004 /* WebView.swift */,
 				B100000000000000000021 /* LocalLinkOpener.swift */,
+				B100000000000000000030 /* LocalResourceLoader.swift */,
 				B100000000000000000005 /* MarkdownRenderer.swift */,
 				B100000000000000000006 /* HTMLTemplate.swift */,
 				B10000000000000000000A /* TextFileDecoder.swift */,
@@ -376,6 +379,7 @@
 				A100000000000000000003 /* ContentView.swift in Sources */,
 				A100000000000000000004 /* WebView.swift in Sources */,
 				A100000000000000000021 /* LocalLinkOpener.swift in Sources */,
+				A100000000000000000030 /* LocalResourceLoader.swift in Sources */,
 				A100000000000000000005 /* MarkdownRenderer.swift in Sources */,
 				A100000000000000000006 /* HTMLTemplate.swift in Sources */,
 				A10000000000000000000A /* TextFileDecoder.swift in Sources */,
