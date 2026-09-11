@@ -25,12 +25,12 @@ enum HTMLTemplate {
         return css
     }()
 
-    static func wrap(body: String, hasMermaid: Bool = false, hasMath: Bool = false, compact: Bool = false, isDark: Bool = false) -> String {
-        let fontSize = compact ? "14px" : "16px"
-        // Extra clearance for the floating header; Quick Look (compact) has none.
-        let topPadding = compact ? "32px" : "64px"
+    static func wrap(body: String, hasMermaid: Bool = false, hasMath: Bool = false, isDark: Bool = false) -> String {
+        let fontSize = "16px"
+        // Extra clearance for the floating header.
+        let topPadding = "64px"
         // Blur veil under the header. Disabled in print (fixed = every page).
-        let headerBlur = compact ? "" : """
+        let headerBlur = """
         body::before {
             content: "";
             position: fixed;
@@ -623,7 +623,6 @@ enum HTMLTemplate {
             }, { passive: true });
         })();
         </script>
-        \(compact ? "" : """
         <script>
         // Collapsible headings: fold the section down to the next same-or-higher
         // heading. Headings are flat siblings, so the fold walks nextElementSibling.
@@ -656,7 +655,6 @@ enum HTMLTemplate {
             });
         })();
         </script>
-        """)
         \(hasMath && katexJS != nil && katexCSS != nil ? """
         <style>\(katexCSS!)</style>
         <script>\(katexJS!)</script>

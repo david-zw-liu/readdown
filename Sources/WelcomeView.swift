@@ -118,7 +118,6 @@ struct WelcomeView: View {
 
     @AppStorage("hasPromptedDefault") private var hasPrompted = false
     @AppStorage("lastLaunchedBuild") private var lastLaunchedBuild = ""
-    @State private var qlEnabled = false
     @State private var isPostUpdate = false
     @State private var isDefault = false
     let dismissWindow: () -> Void
@@ -175,7 +174,7 @@ struct WelcomeView: View {
                 VersionBadge()
             }
 
-            Text("A clean, fast Markdown reader for macOS.\nJust open or hit space on any .md file to read it.")
+            Text("A clean, fast Markdown reader for macOS.\nJust open any .md file to read it.")
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .font(.subheadline)
@@ -199,20 +198,6 @@ struct WelcomeView: View {
                 }
                 .font(.caption)
                 .buttonStyle(.link)
-            }
-
-            if !qlEnabled {
-                VStack(spacing: 4) {
-                    Text("Preview .md files with Space in Finder")
-                        .foregroundStyle(.secondary)
-                        .font(.caption)
-                        .multilineTextAlignment(.center)
-                    Button("Enable Quick Look") {
-                        openExtensionsSettings()
-                    }
-                    .font(.caption)
-                    .buttonStyle(.link)
-                }
             }
 
             Divider()
@@ -243,20 +228,6 @@ struct WelcomeView: View {
 
             Spacer(minLength: 0)
 
-            if !qlEnabled {
-                VStack(spacing: 4) {
-                    Text("Preview .md files with Space in Finder")
-                        .foregroundStyle(.secondary)
-                        .font(.caption)
-                        .multilineTextAlignment(.center)
-                    Button("Enable Quick Look") {
-                        openExtensionsSettings()
-                    }
-                    .font(.caption)
-                    .buttonStyle(.link)
-                }
-            }
-
             VStack(spacing: 2) {
                 Text("Found something off?")
                     .foregroundStyle(.secondary)
@@ -286,12 +257,6 @@ struct WelcomeView: View {
 
     private func refreshSetupStatus() {
         isDefault = isReaddownDefaultForMarkdown()
-        // isQLExtensionEnabled() spawns `pluginkit` and waits on it — never
-        // block the main thread. Run it off-main and publish the result back.
-        DispatchQueue.global(qos: .userInitiated).async {
-            let enabled = self.isQLExtensionEnabled()
-            DispatchQueue.main.async { self.qlEnabled = enabled }
-        }
     }
 
     private func openMarkdownFile() {
@@ -336,54 +301,5 @@ struct WelcomeView: View {
         let current = NSWorkspace.shared.urlForApplication(toOpen: uti)?.resolvingSymlinksInPath().path
         let ours = Bundle.main.bundleURL.resolvingSymlinksInPath().path
         return current == ours
-    }
-
-    /// `pluginkit -m -i <id>` emits `+  <id>` when the extension is enabled and `-  <id>` when
-    /// it's disabled but still registered. If the sandbox blocks the process, or the output is
-    /// empty, default to "enabled" — nagging the user about an extension that is actually on is
-    /// worse than quietly missing one that's off.
-    private func isQLExtensionEnabled() -> Bool {
-        let bundleID = Bundle.main.bundleIdentifier ?? ""
-        let qlID = bundleID + ".ReadDownQuickLook"
-        guard let output = Process.run("/usr/bin/pluginkit", arguments: ["-m", "-i", qlID]),
-              !output.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return true
-        }
-        for raw in output.split(separator: "\n") {
-            let line = raw.drop(while: { $0 == " " })
-            if line.contains(qlID) { return line.hasPrefix("+") }
-        }
-        return true
-    }
-
-    private func openExtensionsSettings() {
-        let urls = [
-            "x-apple.systempreferences:com.apple.LoginItems-Settings.extension",
-            "x-apple.systempreferences:com.apple.ExtensionsPreferences?Quick%20Look",
-            "x-apple.systempreferences:com.apple.Extensions-Settings.QuickLookExtensions",
-            "x-apple.systempreferences:com.apple.ExtensionsPreferences"
-        ]
-        for urlString in urls {
-            if let url = URL(string: urlString),
-               NSWorkspace.shared.open(url) {
-                return
-            }
-        }
-        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preferences")!)
-    }
-}
-
-private extension Process {
-    static func run(_ path: String, arguments: [String]) -> String? {
-        let process = Process()
-        let pipe = Pipe()
-        process.executableURL = URL(fileURLWithPath: path)
-        process.arguments = arguments
-        process.standardOutput = pipe
-        process.standardError = FileHandle.nullDevice
-        try? process.run()
-        process.waitUntilExit()
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        return String(data: data, encoding: .utf8)
     }
 }

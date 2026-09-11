@@ -2,6 +2,11 @@
 
 Each version's **Highlights** block is what appears in the in-app update dialog. Keep it to ~5 short bullets grouped under `### New` / `### Fixed`. Everything below **Details** is full notes for GitHub / readdown.app.
 
+## Unreleased
+
+### Changed
+- Removed the Quick Look extension. Finder now previews .md files with the built-in viewer. The extension ran in its own sandbox and could not read images next to the document.
+
 ## 1.16.1
 
 ### New

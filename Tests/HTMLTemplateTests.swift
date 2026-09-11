@@ -43,11 +43,6 @@ final class HTMLTemplateTests: XCTestCase {
         XCTAssertTrue(result.contains("body::before"))
     }
 
-    func testHeaderBlurAbsentInQuickLook() {
-        let result = HTMLTemplate.wrap(body: "", compact: true)
-        XCTAssertFalse(result.contains("backdrop-filter"))
-    }
-
     // MARK: - Print / Export as PDF contract
 
     func testPrintDisablesHeaderBlur() {

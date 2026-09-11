@@ -20,7 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         // Skip the launch sequence when hosting the test runner.
         guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return }
 
-        resetQuickLook()
         _ = checkForUpdatesViewModel // force lazy init
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.updaterController.startUpdater()
@@ -145,19 +144,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         window.contentView = NSHostingView(rootView: AboutView())
         window.makeKeyAndOrderFront(nil)
         aboutWindow = window
-    }
-
-    /// Reset Quick Look so the system re-scans extensions.
-    /// Ensures Readdown's QL extension is picked up if a competing one was removed.
-    private func resetQuickLook() {
-        DispatchQueue.global(qos: .utility).async {
-            let process = Process()
-            process.executableURL = URL(fileURLWithPath: "/usr/bin/qlmanage")
-            process.arguments = ["-r"]
-            process.standardOutput = FileHandle.nullDevice
-            process.standardError = FileHandle.nullDevice
-            try? process.run()
-        }
     }
 
     func dismissWelcomeWindow() {
@@ -494,7 +480,7 @@ struct AboutView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Text("A clean, fast Markdown reader for macOS. Just open or hit space on any .md file to read it.")
+            Text("A clean, fast Markdown reader for macOS. Just open any .md file to read it.")
                 .font(.system(size: 12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

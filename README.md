@@ -6,7 +6,7 @@
 
 <p align="center">
   The Markdown reader macOS never shipped.<br>
-  Double-click to read, spacebar to preview — nothing more.
+  Double-click to read — nothing more.
 </p>
 
 <p align="center">
@@ -20,21 +20,12 @@
 ## Features
 
 - **Read-only** — No edits, no auto-formatting. Your files stay untouched.
-- **Quick Look** — Spacebar on any .md in Finder. Rendered, not raw.
 - **Lightweight** — Native Swift. Opens in under a second, stays out of your way.
 - **Syntax highlighting** — 19 languages auto-detected, or specify the language on your code fence.
 - **Math rendering** — Inline (`$x^2$`) and display (`$$\int f\,dx$$`) TeX equations via KaTeX, fully offline.
 - **Mermaid diagrams** — Flowcharts, sequence diagrams, pie charts, and more.
 - **Dark mode** — Follows your system appearance automatically.
 - **Default reader** — One click to replace Xcode or TextEdit as your .md handler.
-
-## Quick Look Setup
-
-On first launch, Readdown walks you through this — but here are the manual steps:
-
-1. Open **System Settings > General > Login Items & Extensions**
-2. Click **i** next to **Quick Look**
-3. Toggle **Readdown** on
 
 ## Download
 

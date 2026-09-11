@@ -21,14 +21,7 @@
 		A10000000000000000000F /* DocumentWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000F /* DocumentWatcher.swift */; };
 		A100000000000000000010 /* UsageMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000010 /* UsageMetrics.swift */; };
 		A100000000000000000011 /* ThanksPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000011 /* ThanksPop.swift */; };
-		A200000000000000000007 /* SyntaxHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000C /* SyntaxHighlight.swift */; };
 		A100000000000000000009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B100000000000000000009 /* Assets.xcassets */; };
-		A200000000000000000001 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000001 /* PreviewViewController.swift */; };
-		A200000000000000000002 /* MarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000005 /* MarkdownRenderer.swift */; };
-		A200000000000000000003 /* HTMLTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000006 /* HTMLTemplate.swift */; };
-		A200000000000000000004 /* ReadDownQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D200000000000000000001 /* ReadDownQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A200000000000000000005 /* TextFileDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000A /* TextFileDecoder.swift */; };
-		A200000000000000000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B100000000000000000009 /* Assets.xcassets */; };
 		A300000000000000000001 /* MarkdownRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300000000000000000001 /* MarkdownRendererTests.swift */; };
 		A300000000000000000002 /* TextFileDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300000000000000000002 /* TextFileDecoderTests.swift */; };
 		A300000000000000000003 /* HTMLTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300000000000000000003 /* HTMLTemplateTests.swift */; };
@@ -38,7 +31,6 @@
 		A300000000000000000007 /* LinkPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300000000000000000007 /* LinkPolicyTests.swift */; };
 		A10000000000000000000D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = P200000000000000000001 /* Sparkle */; };
 		A10000000000000000000E /* mermaid.min.js in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000D /* mermaid.min.js */; };
-		A200000000000000000008 /* mermaid.min.js in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000D /* mermaid.min.js */; };
 		A100000000000000000102 /* katex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = B100000000000000000102 /* katex.min.js */; };
 		A200000000000000000102 /* katex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = B100000000000000000102 /* katex.min.js */; };
 		A100000000000000000103 /* katex.min.css in Resources */ = {isa = PBXBuildFile; fileRef = B100000000000000000103 /* katex.min.css */; };
@@ -46,13 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		G100000000000000000001 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0100000000000000000001 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F200000000000000000001;
-			remoteInfo = ReadDownQuickLook;
-		};
 		G300000000000000000001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0100000000000000000001 /* Project object */;
@@ -61,20 +46,6 @@
 			remoteInfo = ReadDown;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E200000000000000000004 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				A200000000000000000004 /* ReadDownQuickLook.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B100000000000000000001 /* ReadDownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDownApp.swift; sourceTree = "<group>"; };
@@ -97,11 +68,7 @@
 		B10000000000000000000D /* mermaid.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mermaid.min.js; sourceTree = "<group>"; };
 		B100000000000000000102 /* katex.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = katex.min.js; sourceTree = "<group>"; };
 		B100000000000000000103 /* katex.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = katex.min.css; sourceTree = "<group>"; };
-		B200000000000000000001 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
-		B200000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B200000000000000000003 /* ReadDownQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReadDownQuickLook.entitlements; sourceTree = "<group>"; };
 		D100000000000000000001 /* ReadDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D200000000000000000001 /* ReadDownQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReadDownQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D300000000000000000001 /* ReadDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReadDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B300000000000000000001 /* MarkdownRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownRendererTests.swift; sourceTree = "<group>"; };
 		B300000000000000000002 /* TextFileDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFileDecoderTests.swift; sourceTree = "<group>"; };
@@ -121,13 +88,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E200000000000000000002 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E300000000000000000002 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				C100000000000000000002 /* MarkdownViewer */,
-				C200000000000000000001 /* ReadDownQuickLook */,
 				C300000000000000000001 /* Tests */,
 				C100000000000000000003 /* Products */,
 			);
@@ -179,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				D100000000000000000001 /* ReadDown.app */,
-				D200000000000000000001 /* ReadDownQuickLook.appex */,
 				D300000000000000000001 /* ReadDownTests.xctest */,
 			);
 			name = Products;
@@ -199,16 +157,6 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		C200000000000000000001 /* ReadDownQuickLook */ = {
-			isa = PBXGroup;
-			children = (
-				B200000000000000000001 /* PreviewViewController.swift */,
-				B200000000000000000002 /* Info.plist */,
-				B200000000000000000003 /* ReadDownQuickLook.entitlements */,
-			);
-			path = ReadDownQuickLook;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,13 +167,11 @@
 				E100000000000000000001 /* Sources */,
 				E100000000000000000002 /* Frameworks */,
 				E100000000000000000003 /* Resources */,
-				E200000000000000000004 /* Embed App Extensions */,
 				E100000000000000000005 /* Patch SDK Version */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				G200000000000000000001 /* PBXTargetDependency */,
 			);
 			name = ReadDown;
 			packageProductDependencies = (
@@ -234,24 +180,6 @@
 			productName = ReadDown;
 			productReference = D100000000000000000001 /* ReadDown.app */;
 			productType = "com.apple.product-type.application";
-		};
-		F200000000000000000001 /* ReadDownQuickLook */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1500000000000000000001 /* Build configuration list for PBXNativeTarget "ReadDownQuickLook" */;
-			buildPhases = (
-				E200000000000000000001 /* Sources */,
-				E200000000000000000002 /* Frameworks */,
-				E200000000000000000003 /* Resources */,
-				E200000000000000000005 /* Patch SDK Version */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ReadDownQuickLook;
-			productName = ReadDownQuickLook;
-			productReference = D200000000000000000001 /* ReadDownQuickLook.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		F300000000000000000001 /* ReadDownTests */ = {
 			isa = PBXNativeTarget;
@@ -283,9 +211,6 @@
 					F100000000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					F200000000000000000001 = {
-						CreatedOnToolsVersion = 15.0;
-					};
 				};
 			};
 			buildConfigurationList = 1300000000000000000001 /* Build configuration list for PBXProject "ReadDown" */;
@@ -305,7 +230,6 @@
 			projectRoot = "";
 			targets = (
 				F100000000000000000001 /* ReadDown */,
-				F200000000000000000001 /* ReadDownQuickLook */,
 				F300000000000000000001 /* ReadDownTests */,
 			);
 		};
@@ -323,35 +247,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E200000000000000000003 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A200000000000000000006 /* Assets.xcassets in Resources */,
-				A200000000000000000008 /* mermaid.min.js in Resources */,
-				A200000000000000000102 /* katex.min.js in Resources */,
-				A200000000000000000103 /* katex.min.css in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E200000000000000000005 /* Patch SDK Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
-			);
-			name = "Patch SDK Version";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Xcode 26 beta stamps sdk 26.x into the binary, which crashes\n# ExtensionFoundation on macOS 15 (no Quick Look preview extension\n# point registered in ExtensionKit). Rewrite to sdk 15.0.\nBINARY=\"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nif vtool -show-build \"$BINARY\" 2>/dev/null | grep -q 'sdk 2[6-9]'; then\n  vtool -set-build-version macos \"${MACOSX_DEPLOYMENT_TARGET}\" 15.0 -replace -output \"${BINARY}.tmp\" \"$BINARY\"\n  mv \"${BINARY}.tmp\" \"$BINARY\"\nfi\n\n# GENERATE_INFOPLIST_FILE overwrites CFBundleName with PRODUCT_NAME. Restore\n# the user-facing 'Readdown' so system dialogs (Set as Default, etc.) show it.\nPLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleName Readdown\" \"$PLIST\" 2>/dev/null || true\n";
-		};
 		E100000000000000000005 /* Patch SDK Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,18 +289,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E200000000000000000001 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A200000000000000000001 /* PreviewViewController.swift in Sources */,
-				A200000000000000000002 /* MarkdownRenderer.swift in Sources */,
-				A200000000000000000003 /* HTMLTemplate.swift in Sources */,
-				A200000000000000000005 /* TextFileDecoder.swift in Sources */,
-				A200000000000000000007 /* SyntaxHighlight.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E300000000000000000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -420,11 +306,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		G200000000000000000001 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F200000000000000000001 /* ReadDownQuickLook */;
-			targetProxy = G100000000000000000001 /* PBXContainerItemProxy */;
-		};
 		G400000000000000000001 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F100000000000000000001 /* ReadDown */;
@@ -621,66 +502,6 @@
 			};
 			name = Release;
 		};
-		1400000000000000000001 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ReadDownQuickLook/ReadDownQuickLook.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReadDownQuickLook/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Readdown;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Natalia Arsand";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MARKETING_VERSION = 1.16.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.heya.readdown.ReadDownQuickLook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		1400000000000000000002 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ReadDownQuickLook/ReadDownQuickLook.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReadDownQuickLook/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Readdown;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Natalia Arsand";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MARKETING_VERSION = 1.16.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.heya.readdown.ReadDownQuickLook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		1600000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -732,15 +553,6 @@
 			buildConfigurations = (
 				1200000000000000000001 /* Debug */,
 				1200000000000000000002 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1500000000000000000001 /* Build configuration list for PBXNativeTarget "ReadDownQuickLook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1400000000000000000001 /* Debug */,
-				1400000000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

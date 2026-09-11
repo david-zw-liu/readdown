@@ -54,50 +54,16 @@ check_sdk() {
 }
 
 # Main app intentionally keeps SDK 26.x to get macOS Tahoe chrome on macOS 26+.
-# Only the QL extension and Sparkle binaries must stay <= SDK 15 for macOS 15
-# compatibility (extensions / installer XPC services that macOS 15 refuses to load).
-check_sdk "$APP_PATH/Contents/PlugIns/ReadDownQuickLook.appex/Contents/MacOS/ReadDownQuickLook" "Quick Look extension"
+# Only the Sparkle binaries must stay <= SDK 15 for macOS 15 compatibility
+# (installer XPC services that macOS 15 refuses to load).
 check_sdk "$APP_PATH/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer" "Sparkle Installer"
 check_sdk "$APP_PATH/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate" "Sparkle Autoupdate"
-
-# ── Quick Look Extension Bundle ──
-echo ""
-echo "--- Quick Look Extension ---"
-
-check "QL appex exists" test -d "$APP_PATH/Contents/PlugIns/ReadDownQuickLook.appex"
-check "QL binary exists" test -x "$APP_PATH/Contents/PlugIns/ReadDownQuickLook.appex/Contents/MacOS/ReadDownQuickLook"
-
-# Verify QL Info.plist has correct structure
-QL_PLIST="$APP_PATH/Contents/PlugIns/ReadDownQuickLook.appex/Contents/Info.plist"
-check "QL Info.plist exists" test -f "$QL_PLIST"
-check "QL extension point in NSExtension" \
-    /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$QL_PLIST"
-check "QL supported content types in NSExtensionAttributes" \
-    /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:QLSupportedContentTypes:0" "$QL_PLIST"
-
-QL_UTI0=$(/usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:QLSupportedContentTypes:0" "$QL_PLIST" 2>/dev/null || echo "")
-QL_UTI1=$(/usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:QLSupportedContentTypes:1" "$QL_PLIST" 2>/dev/null || echo "")
-if [ "$QL_UTI0" = "net.daringfireball.markdown" ]; then
-    echo "  PASS: QL UTI includes net.daringfireball.markdown"
-    PASS=$((PASS + 1))
-else
-    echo "  FAIL: QL UTI[0] is '$QL_UTI0' (expected net.daringfireball.markdown)"
-    FAIL=$((FAIL + 1))
-fi
-if [ "$QL_UTI1" = "public.markdown" ]; then
-    echo "  PASS: QL UTI includes public.markdown"
-    PASS=$((PASS + 1))
-else
-    echo "  FAIL: QL UTI[1] is '$QL_UTI1' (expected public.markdown)"
-    FAIL=$((FAIL + 1))
-fi
 
 # ── Code Signing ──
 echo ""
 echo "--- Code Signing ---"
 
 check "Main app signature valid" codesign --verify --deep --strict "$APP_PATH"
-check "QL extension signature valid" codesign --verify --strict "$APP_PATH/Contents/PlugIns/ReadDownQuickLook.appex"
 
 SIGNING_ID=$(codesign -dvv "$APP_PATH" 2>&1 | grep "Authority=Developer ID Application" | head -1 || echo "")
 if [ -n "$SIGNING_ID" ]; then
